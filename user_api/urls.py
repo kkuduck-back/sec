@@ -11,13 +11,13 @@ urlpatterns = [
 
     # DefaultSubscription_view
     path('', views.DefaultSubView.as_view()),
-    path('<str:service_name>', views.DefaultSubView.as_view()),
+    path('<int:default_id>', views.DefaultSubView.as_view()),
 
     # Subscription_view
     path('', views.SubView.as_view()),
-    path('<str:plan_name>', views.SubView.as_view())
+    path('<int:sub_id>', views.SubView.as_view())
 
-
+    #plan_view
 ]
 
 
