@@ -8,7 +8,6 @@ class User(models.Model):
         null=False,
         primary_key=True)
     user_name = models.CharField(max_length=128, null=False)
-    # address = models.CharField(max_length=256, null=True)
     class Meta:
         db_table = 'User' # database 안에 이제 user란 테이블을 만들거야.
 
@@ -25,14 +24,14 @@ class Subscription(models.Model):
     image_url = models.ImageField(null=True, blank=True)
 
     # User 클래스의 user_id를 가져와서 쓸거야
-    user_id = models.ForeignKey(User,max_length=128, null=False,on_delete=models.CASCADE, db_column="user_id_hee")
+    user_id = models.ForeignKey(User,max_length=128, null=False,on_delete=models.CASCADE, db_column="user_id")
     class Meta:
         db_table = 'Subscription'
 
 class DefaultSubscription(models.Model):
-    service_name = models.CharField(primary_key=True, max_length=128)
-    plans = models.CharField(max_length=128, null=False) #primary_key 추가함
-    # image_id = models.CharField(null=True, max_length=128)
+    # dsub_id = models.AutoField(null=False, primary_key=True)  #혜지님거 추가
+    service_name = models.CharField(max_length=128, primary_key=True)
+    plans = models.CharField(max_length=128, null=False)
     image_url = models.ImageField(null=True, blank=True)
     class Meta:
         db_table = 'DefaultSubscription'

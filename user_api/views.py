@@ -60,6 +60,30 @@ class SubView(APIView):
             #값이 들어갔는지 응답을 해주기 위해
             return Response({'result':'fail', 'data':serializer.errors}, status.HTTP_400_BAD_REQUEST)
 
+    def put(self, request, **kwargs):
+        if kwargs.get('id') is None:
+            return Response("invalid request", status=status.HTTP_400_BAD_REQUEST)
+        else:
+            sub_id = kwargs.get('id')
+            sub_object = User.objects.get(id=sub_id)
+ 
+            update_sub_serializer = SubSerializer(sub_object, data=request.data)
+            if update_sub_serializer.is_valid():
+                update_sub_serializer.save()
+                # return Response(update_sub_serializer.data, status=status.HTTP_200_OK)
+                return Response({'result':'success', 'data':update_sub_serializer.data},status=status.HTTP_200_OK)                
+            else:
+                return Response("invalid request", status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, **kwargs):
+        if kwargs.get('id') is None:
+            return Response("invalid request", status=status.HTTP_400_BAD_REQUEST)
+        else:
+            sub_id = kwargs.get('id')
+            sub_object = User.objects.get(id=sub_id)
+            sub_object.delete()
+            return Response({"result":"success"}, status= status.HTTP_200_OK)
+
 
 
             
