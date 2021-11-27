@@ -21,8 +21,8 @@ urlpatterns = [
 
 
     # Subscription_view
-    path('subscription/', views.SubView.as_view()),
-    path('subscription/<int:sub_id>', views.SubView.as_view())
+    path('', views.SubView.as_view()),
+    path('<int:sub_id>', views.SubView.as_view())
 
     #plan_view
 ]

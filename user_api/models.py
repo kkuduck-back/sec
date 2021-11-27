@@ -12,6 +12,10 @@ class User(models.Model):
         db_table = 'User' # database 안에 이제 user란 테이블을 만들거야.
 
 class Subscription(models.Model):
+    id = models.AutoField(primary_key=True)
+
+
+
     service_name = models.CharField(max_length=256, null=False) # 새로 추가한 구독서비스이름
     plan_name = models.CharField(max_length=128, null=False)
     plan_price = models.IntegerField(default=0, null=False)
@@ -24,7 +28,7 @@ class Subscription(models.Model):
     image_url = models.ImageField(null=True, blank=True)
 
     # User 클래스의 user_id를 가져와서 쓸거야
-    user_id = models.ForeignKey(User,max_length=128, null=False,on_delete=models.CASCADE, db_column="user_id")
+    user_id = models.ForeignKey(User, related_name="User", null=False,on_delete=models.CASCADE, db_column="user_id")
     class Meta:
         db_table = 'Subscription'
 
@@ -42,7 +46,7 @@ class Plan(models.Model):
     cycle = models.CharField(max_length=64, null=False)
 
     # DefaultSubscription의 service_name을 가져와서 쓸거야 
-    default_sub_id = models.ForeignKey(DefaultSubscription, max_length=128, null=False, on_delete=models.CASCADE, db_column='default_sub_id')
+    default_sub_id = models.ForeignKey(DefaultSubscription, related_name="default", null=False, on_delete=models.CASCADE, db_column='default_sub_id')
     class Meta:
         db_table = 'Plan'
     

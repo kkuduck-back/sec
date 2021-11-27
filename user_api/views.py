@@ -65,7 +65,7 @@ class SubView(APIView):
             return Response("invalid request", status=status.HTTP_400_BAD_REQUEST)
         else:
             sub_id = kwargs.get('id')
-            sub_object = User.objects.get(id=sub_id)
+            sub_object = User.objects.get(sub_id=sub_id)
  
             update_sub_serializer = SubSerializer(sub_object, data=request.data)
             if update_sub_serializer.is_valid():
