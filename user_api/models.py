@@ -15,14 +15,14 @@ class User(models.Model):
 class Subscription(models.Model):
     service_name = models.CharField(max_length=256, null=False) # 새로 추가한 구독서비스이름
     plan_name = models.CharField(max_length=128, null=False)
-    plan_price = models.CharField(max_length=128, null=False)
+    plan_price = models.IntegerField(default=0, null=False)
     cycle = models.CharField(max_length=128, null=False)
     head_count = models.IntegerField(default=1, null=False) # 새로 추가한 사용인원
     start_date = models.DateTimeField(max_length=128, null=False)
     service_id = models.CharField(max_length=128, null=True)  # 구독서비스아이디 여러개 만들어서 하시는 분
     end_date = models.DateTimeField(null=True)
     share_id = models.CharField(max_length=128, null=True) # 구독한 서비스의 ID, 꾸덕id 아님 주의
-    image_id = models.CharField(max_length=1024, null=True)
+    image_url = models.ImageField(null=True, blank=True)
 
     # User 클래스의 user_id를 가져와서 쓸거야
     user_id = models.ForeignKey(User,max_length=128, null=False,on_delete=models.CASCADE, db_column="user_id_hee")
@@ -32,7 +32,8 @@ class Subscription(models.Model):
 class DefaultSubscription(models.Model):
     service_name = models.CharField(primary_key=True, max_length=128)
     plans = models.CharField(max_length=128, null=False) #primary_key 추가함
-    image_id = models.CharField(null=True, max_length=128)
+    # image_id = models.CharField(null=True, max_length=128)
+    image_url = models.ImageField(null=True, blank=True)
     class Meta:
         db_table = 'DefaultSubscription'
 
