@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 # if###########################################
 from http import HTTPStatus
-from django.http import HttpResponse
+from django.http import HttpResponse, response
 ############################################
 
 
@@ -46,18 +46,23 @@ class SubView(APIView):
             return Response(sub_queryset_serialier.data, status=status.HTTP_200_OK)
         else:
             sub_id = kwargs.get('id')
-            sub_serializer = SubSerializer(Subscription.objects.get(sub_id=sub_id)) #id에 해당하는 User의 정보를 불러온다
-            return Response(sub_serializer.data, status=status.HTTP_200_OK)
+            sub_serializer = SubSerializer(Subscription.objects.get(id=sub_id)) #id에 해당하는 User의 정보를 불러온다
+            return Response(sub_serializer.data, status=status.HHTTP_400_BAD_REQUEST)
 
     def post(self, request):
-        default_serializer = DefaultSubSerializer(data=request.data) #Request의 data를 UserSerializer로 변환
- 
-        if default_serializer.is_valid():
-            default_serializer.save() #UserSerializer의 유효성 검사를 한 뒤 DB에 저장
-            return Response({'result':'success', 'data':default_serializer.data},
+        serializer = SubSerializer(data=request.data) #Request의 data를 SubSerializer로 변환
+
+        if serializer.is_valid():
+            serializer.save() #SubSerializer의 유효성 검사를 한 뒤 DB에 저장
+            return Response({'result':'success', 'data':serializer.data},
             status=status.HTTP_200_OK) #client에게 JSON response 전달
-        else:
-            return Response({'result':'fail', 'data':default_serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        else :
+            #값이 들어갔는지 응답을 해주기 위해
+            return Response({'result':'fail', 'data':serializer.errors}, status.HTTP_400_BAD_REQUEST)
+
+
+
+            
 
 class UserView(APIView):
     # def get(self, request, **kwargs):
