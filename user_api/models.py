@@ -18,9 +18,9 @@ class Subscription(models.Model):
     plan_price = models.IntegerField(default=0, null=False)
     cycle = models.CharField(max_length=128, null=False)
     head_count = models.IntegerField(default=1, null=False) # 새로 추가한 사용인원
-    start_date = models.DateTimeField(max_length=128, null=False)
+    start_date = models.DateField(max_length=128, null=False)
     service_id = models.CharField(max_length=128, null=True)  # 구독서비스아이디 여러개 만들어서 하시는 분
-    end_date = models.DateTimeField(null=True)
+    end_date = models.DateField(null=True)
     share_id = models.CharField(max_length=128, null=True) # 구독한 서비스의 ID, 꾸덕id 아님 주의
     image_url = models.ImageField(null=True, blank=True)
 
