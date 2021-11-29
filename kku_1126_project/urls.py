@@ -22,9 +22,9 @@ from user_api.views import SubView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('users/', include('user_api.urls'), name='user_api'), # from user_api 라는 '앱'에서 import views
+    path('', include('user_api.urls'), name='user_api'), # from user_api 라는 '앱'에서 import views
 
-    # default_subscription 과 subscription url로 볼 수 있게...
-    path('default_subscription/', DefaultSubView.as_view(), name='default'),
-    path('subscription/', SubView.as_view(), name='sub')
+    # # default_subscription 과 subscription url로 볼 수 있게...
+    # path('default_subscription/', DefaultSubView.as_view(), name='default'),
+    # path('subscription/', SubView.as_view(), name='sub')
 ]
